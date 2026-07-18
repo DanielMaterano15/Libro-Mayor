@@ -1,98 +1,65 @@
-# Guía para explicar "Libro Mayor: El Duelo Contable"
+# 📊 Libro Mayor: El Duelo Contable
 
-Documento de apoyo para que tu cliente pueda presentar el proyecto y responder preguntas de su profesora de programación con seguridad.
-
----
-
-## 1. ¿Qué es el juego? (resumen de 30 segundos)
-
-> "Es un juego de cartas por turnos, inspirado en Balatro e Inscryption, donde cada carta representa una transacción contable real (ventas, pagos, préstamos, etc.). El jugador arma 'asientos contables' combinando cartas, y si el Debe cuadra con el Haber, gana el doble de puntos. Gana quien primero llegue a 1000 puntos. Se puede jugar contra otra persona en el mismo dispositivo o contra una IA."
-
-Puntos clave a mencionar:
-- **Género:** roguelike de cartas / card battler por turnos.
-- **Tema:** procedimiento administrativo-contable (libro mayor, partida doble, Debe/Haber).
-- **Objetivo pedagógico implícito:** refuerza de forma lúdica el principio de partida doble (Activo = Pasivo + Patrimonio, Debe = Haber).
+Un videojuego web casual de cartas y estrategia con temática contable retro. ¡Cuadra tus asientos antes que tu rival, domina el Libro Diario y cierra el balance para ganar la auditoría!
 
 ---
 
-## 2. Mecánicas del juego
+## 🧐 ¿De qué trata el juego?
 
-| Elemento | Explicación simple |
-|---|---|
-| **Mano** | Cada turno recibes 7 cartas de transacciones al azar. |
-| **Asiento** | Eliges entre 2 y 5 cartas de tu mano. |
-| **Cuadre** | Si la suma del Debe de las cartas elegidas es igual a la suma del Haber, el asiento "cuadra". |
-| **Puntaje** | Puntos = suma del valor de las cartas × 2 (si cuadra) o × 0.5 (si no cuadra). |
-| **Redibujar** | Una vez por turno puedes descartar tu mano y pedir una nueva. |
-| **Meta** | El primer jugador (o la IA) en llegar a 1000 puntos gana. |
-| **Modos** | 1 jugador vs. IA ("El Auditor") o 2 jugadores en el mismo dispositivo (turnos alternos con pantalla de traspaso). |
+**Libro Mayor: El Duelo Contable** es un juego de mesa digital por turnos diseñado para 1 o 2 jugadores (en el mismo dispositivo). La mecánica principal emula la contabilidad por partida doble tradicional, transformándola en un rompecabezas táctico y competitivo:
 
----
-
-## 3. ¿Cómo funciona la IA ("El Auditor")?
-
-Explicación técnica sencilla:
-
-- La IA **no usa aprendizaje automático ni redes neuronales** — usa **fuerza bruta controlada**: prueba todas las combinaciones posibles de su mano (de 2 a 5 cartas) y calcula el puntaje de cada una con la misma fórmula que usa el jugador.
-- Con una mano de 7 cartas, el número total de combinaciones posibles es pequeño (112 combinaciones: C(7,2)+C(7,3)+C(7,4)+C(7,5)), así que la IA puede evaluarlas **todas** en milisegundos y elegir siempre la mejor jugada posible.
-- Si su mejor jugada no logra un asiento cuadrado, usa su redibujo antes de decidir, igual que podría hacerlo un jugador humano.
-- **Por qué esto es válido como respuesta técnica:** cuando el espacio de posibilidades es pequeño y conocido, la fuerza bruta *es* la solución óptima — no hace falta un algoritmo más complejo para que sea "una IA lo suficientemente buena".
+1. **La Mano:** Cada turno recibes **7 cartas** de transacciones financieras (Caja, Banco, Mercancías, Gastos, Ingresos, etc.).
+2. **El Asiento:** Debes seleccionar libremente entre **2 y 5 cartas** para estructurar un asiento contable.
+3. **La Partida Doble:** Cada carta aporta puntos a la columna del **Debe** o del **Haber**, además de un valor intrínseco en puntos.
+4. **El Multiplicador:** 
+   - **¡Cuadrado! (✓)** Si la suma del *Debe* es exactamente igual a la del *Haber*, el asiento está balanceado y tus puntos acumulados en ese turno se **duplican (x2)**.
+   - **¡Descuadrado! (✗)** Si los montos no coinciden, el asiento es inválido ante la ley de auditoría y solo conservas la **mitad de los puntos (x0.5)**.
+5. **La Meta:** El primer contador en alcanzar **1,000 puntos** cierra el balance general y se corona como el **Contador Mayor**.
 
 ---
 
-## 4. Stack tecnológico y por qué se eligió
+## 🛠️ Modalidades de Juego
 
-| Decisión | Justificación |
-|---|---|
-| **HTML + CSS + JavaScript puro** (sin frameworks como React o motores como Unity) | El juego corre en cualquier navegador sin instalar nada, sin proceso de compilación (build), y se puede subir a cualquier hosting estático (GitHub Pages, Netlify, Vercel) en minutos. |
-| **Un solo archivo autocontenido** | Facilita la entrega, el hosting y la futura conversión a APK — no depende de un backend ni de una base de datos. |
-| **Sprites en pixel art generados por código (SVG)** | En vez de usar imágenes descargadas, cada ícono se genera dibujando una cuadrícula de píxeles con código. Esto evita depender de archivos de imagen externos y mantiene el juego 100% liviano. |
-| **Sin librerías externas de terceros** (solo tipografías de Google Fonts para el estilo visual) | Menos dependencias = menos puntos de falla = más fácil de mantener y de explicar línea por línea. |
-
-**Cómo se convertiría en APK:** al ser HTML/CSS/JS estándar, se puede envolver con **Capacitor** o **Cordova** (herramientas que empaquetan una página web dentro de una app Android/iOS) sin reescribir el código del juego.
+*   **👤 1 Jugador vs CPU ("El Auditor"):** Enfréntate a una Inteligencia Artificial algorítmica local que analiza de forma exhaustiva las combinaciones posibles en su mano para registrar siempre el asiento más óptimo y balanceado.
+*   **👥 2 Jugadores (Local / Pass & Play):** Compite contra un colega en el mismo dispositivo. El juego incluye un sistema de protección de pantalla (*Handoff Overlay*) para que tu oponente no pueda espiar tus cartas cuando sea tu turno.
 
 ---
 
-## 5. Proceso de desarrollo (metodología)
+## 🎨 Características Visuales y Estéticas
 
-Puedes describirlo como un mini-proceso iterativo, útil si preguntan "¿cómo lo desarrollaste?":
-
-1. **Levantamiento de requisitos:** el cliente definió las condiciones obligatorias (puntos acumulativos con meta, multijugador local o IA, temática contable, accesibilidad vía web/APK).
-2. **Diseño del concepto:** se tomó como referencia la estructura de juegos de cartas con multiplicadores (Balatro) y de duelo por turnos con un rival con personalidad (Inscryption), adaptando la mecánica central al dominio contable (el "cuadre" Debe = Haber como condición de bono).
-3. **Prototipo funcional:** se construyó primero la lógica de juego (datos de cartas, cálculo de puntaje, turnos) y después la interfaz visual.
-4. **Iteración con el cliente:** tras la primera versión, se simplificaron las reglas a 4 pasos claros, se añadieron los sprites en pixel art y un botón de salida al menú con confirmación, para mejorar la experiencia de uso.
-5. **Verificación:** se validó la sintaxis del código y el comportamiento del juego (que la IA siempre calcule una jugada válida, que el marcador y las condiciones de victoria funcionen correctamente).
+*   **Estilo "Paper & Ink":** Diseño minimalista inspirado en libros contables antiguos, hojas de balance amarillentas y tipografías mecánicas (*Special Elite* e *IBM Plex Mono*).
+*   **Pixel Art Procedural Integrado:** Motor interno en JavaScript para renderizar iconos vectoriales tipo píxel (`<svg>`) sin dependencias de imágenes externas ni librerías pesadas.
+*   **Adaptabilidad Móvil:** Interfaz completamente interactiva, responsiva y diseñada con consideraciones de reducción de movimiento (*prefers-reduced-motion*).
 
 ---
 
-## 6. Preguntas frecuentes que podría hacer una profesora de programación (con respuesta corta)
+## ⚙️ Tecnologías Utilizadas
 
-**¿Qué lenguaje usaste y por qué no uno "más serio" como Java o C#?**
-JavaScript porque el requisito era que fuera accesible desde cualquier navegador sin instalación; es la opción estándar para juegos web y no limita una futura conversión a app móvil.
-
-**¿Cómo estructuraste el código?**
-Separando tres responsabilidades: los *datos* (lista de cartas, categorías, íconos), la *lógica* (funciones puras como el cálculo de puntaje, que no dependen de la pantalla) y la *interfaz* (funciones que dibujan el estado actual en pantalla). El estado del juego completo vive en un solo objeto (`state`).
-
-**¿Qué es una "función pura" en tu código y dónde la usaste?**
-Es una función que, dado el mismo input, siempre da el mismo output y no modifica nada fuera de sí misma. La función que calcula el puntaje de un asiento es un ejemplo: solo recibe las cartas seleccionadas y devuelve el resultado, sin tocar el resto del juego.
-
-**¿Cómo evitas que la IA haga trampa?**
-Usa exactamente la misma función de puntaje, el mismo tamaño de mano y el mismo mazo de cartas que el jugador humano; no tiene información oculta ni ventajas.
-
-**¿Qué complejidad tiene el algoritmo de la IA?**
-Es acotada (el tamaño de la mano siempre es 7), así que aunque técnicamente es fuerza bruta exponencial en el caso general, aquí es constante en la práctica: siempre evalúa como máximo 112 combinaciones.
-
-**¿Cómo probaste que el juego funciona sin errores?**
-Se validó la sintaxis del JavaScript de forma automática y se revisó manualmente cada flujo: iniciar partida, seleccionar cartas, jugar un asiento, redibujar mano, cambiar de turno, ganar la partida y volver al menú principal.
-
-**¿Qué mejorarías si tuvieras más tiempo?**
-Guardar el progreso entre sesiones, agregar sonido y animaciones, sumar más tipos de transacciones/cartas especiales, y un modo multijugador en línea (no solo local).
-
-**¿Por qué el juego usa pixel art y no gráficos más "realistas"?**
-Es una decisión de estilo coherente con el género (roguelikes de cartas como Balatro/Inscryption suelen usar estética retro/pixel), y además los sprites pixel art se pueden generar con código simple (cuadrículas de colores), sin necesitar un diseñador gráfico ni imágenes externas.
+*   **HTML5** estructurado para semántica de juegos.
+*   **CSS3** avanzado utilizando variables nativas, degradados lineales repetitivos para simular renglones de papel, y diseño flexible.
+*   **Vanilla JavaScript (ES6+)** puro. Sin frameworks, empaquetadores ni librerías externas. Todo el estado del juego, la lógica de combinatoria matemática y la IA se ejecutan de manera local e instantánea en el cliente.
 
 ---
 
-## 7. Frase de cierre sugerida
+## 🚀 Cómo Ejecutar el Proyecto
 
-> "El juego cumple los cinco requisitos originales: tiene un sistema de puntos acumulativos con una meta clara (1000 pts), ofrece tanto multijugador local como una IA competente, está completamente tematizado en el proceso contable de partida doble, es accesible desde cualquier navegador y puede convertirse en APK sin cambios de código, y fue construido priorizando la menor cantidad de dependencias posible para minimizar errores."
+Al ser un desarrollo basado puramente en tecnologías web nativas, no necesitas instalar entornos complicados ni servidores de backend:
+
+1. **Clona este repositorio:**
+   ```bash
+   git clone https://github.com/tu-usuario/libro-mayor-duelo-contable.git
+   ```
+2. **Navega al directorio del proyecto:**
+   ```bash
+   cd libro-mayor-duelo-contable
+   ```
+3. **Abre el archivo `index.html` en tu navegador favorito:**
+   - Simplemente haz doble clic sobre el archivo en tu explorador de archivos.
+   - O ejecútalo desde la terminal si usas un servidor ligero (ej. `python -m http.server 8000` o la extensión *Live Server* de VS Code).
+
+---
+
+## 🧠 Lógica Detrás de la IA ("El Auditor")
+
+La IA utiliza un enfoque de **fuerza bruta optimizada** a través de combinatoria indexada. En cada turno, calcula todas las combinaciones posibles de subconjuntos de tamaño 2 a 5 elementos a partir de sus 7 cartas disponibles (un total de $21 + 35 + 21 = 77$ combinaciones potenciales). 
+Evalúa el puntaje final neto resultante aplicando las reglas del multiplicador, y prioriza la opción que maximice el rendimiento total de puntos. Si detecta que ninguna combinación inicial le permite cuadrar un balance, ejecuta estratégicamente la mecánica de redibujo de mano antes de tomar una decisión definitiva.
