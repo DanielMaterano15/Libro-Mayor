@@ -47,7 +47,7 @@ Al ser un desarrollo basado puramente en tecnologías web nativas, no necesitas 
 
 1. **Clona este repositorio:**
    ```bash
-   git clone https://github.com/tu-usuario/libro-mayor-duelo-contable.git
+   git clone https://github.com/tu-usuario/libro-mayor-duelo-contable.git](https://github.com/DanielMaterano15/Libro-Mayor.git)
    ```
 2. **Navega al directorio del proyecto:**
    ```bash
